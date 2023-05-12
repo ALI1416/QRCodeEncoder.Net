@@ -88,34 +88,25 @@ namespace Z.QRCodeEncoder.Net
         /// </param>
         public Version(int length, int level, int mode, int? versionNumber)
         {
-            // 编码模式
+            // 最小版本号
             switch (mode)
             {
                 // NUMERIC 数字0-9
                 case 0:
                     {
                         VersionNumber = ModeNumeric(length, level) + 1;
-                        // `内容字节数`bit数 1-9版本10bit 10-26版本12bit 27-40版本14bit
-                        // 数据来源 ISO/IEC 18004-2015 -> 7.4.1 -> Table 3 -> Numeric mode列
-                        ContentBytesBits = VersionNumber < 10 ? 10 : (VersionNumber < 27 ? 12 : 14);
                         break;
                     }
                 // ALPHANUMERIC 数字0-9、大写字母A-Z、符号(空格)$%*+-./:
                 case 1:
                     {
                         VersionNumber = ModeAlphaNumeric(length, level) + 1;
-                        // `内容字节数`bit数 1-9版本9bit 10-26版本11bit 27-40版本13bit
-                        // 数据来源 ISO/IEC 18004-2015 -> 7.4.1 -> Table 3 -> Alphanumeric mode列
-                        ContentBytesBits = VersionNumber < 10 ? 9 : (VersionNumber < 27 ? 11 : 13);
                         break;
                     }
                 // BYTE(ISO-8859-1)
                 case 2:
                     {
                         VersionNumber = ModeByte(length, level) + 1;
-                        // `内容字节数`bit数 1-9版本8bit 10-40版本16bit
-                        // 数据来源 ISO/IEC 18004-2015 -> 7.4.1 -> Table 3 -> Byte mode列
-                        ContentBytesBits = VersionNumber < 10 ? 8 : 16;
                         break;
                     }
                 // BYTE(UTF-8)
@@ -125,26 +116,55 @@ namespace Z.QRCodeEncoder.Net
                         // 相比ISO-8859-1多1字节(不需要补齐符的情况下)
                         // ECI模式指示符(4bit)+ECI指定符(8bit)-结束符(4bit)=1字节
                         VersionNumber = ModeByte(length + 1, level) + 1;
-                        ContentBytesBits = VersionNumber < 10 ? 8 : 16;
                         break;
                     }
             }
+            // 指定版本号
             if (VersionNumber == 0)
             {
                 throw new Exception("内容过长！");
             }
-            if (versionNumber == null) { }
-            else if (versionNumber < 0 || versionNumber > 40)
+            if (versionNumber < 1 || versionNumber > 40)
             {
-                throw new Exception("版本号不合法！");
+                throw new Exception("版本号 " + versionNumber + " 不合法！应为 [1,40]");
             }
             else if (VersionNumber > versionNumber)
             {
-                throw new Exception("版本号过小！");
+                throw new Exception("版本号 " + versionNumber + " 太小！最小为 " + VersionNumber);
             }
-            else
+            else if (versionNumber != null)
             {
                 VersionNumber = (int)versionNumber;
+            }
+            // `内容字节数`bit数
+            switch (mode)
+            {
+                // NUMERIC
+                case 0:
+                    {
+                        // `内容字节数`bit数 1-9版本10bit 10-26版本12bit 27-40版本14bit
+                        // 数据来源 ISO/IEC 18004-2015 -> 7.4.1 -> Table 3 -> Numeric mode列
+                        ContentBytesBits = VersionNumber < 10 ? 10 : (VersionNumber < 27 ? 12 : 14);
+                        break;
+                    }
+                // ALPHANUMERIC
+                case 1:
+                    {
+                        // `内容字节数`bit数 1-9版本9bit 10-26版本11bit 27-40版本13bit
+                        // 数据来源 ISO/IEC 18004-2015 -> 7.4.1 -> Table 3 -> Alphanumeric mode列
+                        ContentBytesBits = VersionNumber < 10 ? 9 : (VersionNumber < 27 ? 11 : 13);
+                        break;
+                    }
+                // BYTE
+                default:
+                case 2:
+                case 3:
+                    {
+                        // `内容字节数`bit数 1-9版本8bit 10-40版本16bit
+                        // 数据来源 ISO/IEC 18004-2015 -> 7.4.1 -> Table 3 -> Byte mode列
+                        ContentBytesBits = VersionNumber < 10 ? 8 : 16;
+                        break;
+                    }
             }
             Dimension = (VersionNumber - 1) * 4 + 21;
             DataBits = DATA_BYTES[VersionNumber - 1, level] * 8;

@@ -11,13 +11,29 @@ namespace Z.QRCodeEncoder.Net
     {
 
         /// <summary>
+        /// 纠错等级
+        /// </summary>
+        public readonly int Level;
+        /// <summary>
+        /// 编码模式
+        /// </summary>
+        public readonly int Mode;
+        /// <summary>
         /// 版本
         /// </summary>
         public readonly Version Version;
         /// <summary>
+        /// 版本号
+        /// </summary>
+        public readonly int VersionNumber;
+        /// <summary>
         /// 掩模模板
         /// </summary>
         public readonly MaskPattern MaskPattern;
+        /// <summary>
+        /// 掩模模板号
+        /// </summary>
+        public readonly int MaskPatternNumber;
         /// <summary>
         /// 矩阵
         /// <para>false白 true黑</para>
@@ -26,8 +42,8 @@ namespace Z.QRCodeEncoder.Net
 
         /// <summary>
         /// 构造二维码
-        /// <para>编码模式 自动探测</para>
         /// <para>纠错等级 0 L 7%</para>
+        /// <para>编码模式 自动探测</para>
         /// <para>版本号 最小版本</para>
         /// </summary>
         /// <param name="content">
@@ -37,34 +53,11 @@ namespace Z.QRCodeEncoder.Net
 
         /// <summary>
         /// 构造二维码
-        /// <para>纠错等级 0 L 7%</para>
+        /// <para>编码模式 自动探测</para>
         /// <para>版本号 最小版本</para>
         /// </summary>
         /// <param name="content">
         /// 内容
-        /// </param>
-        /// <param name="mode">
-        /// 编码模式(默认自动探测)
-        /// <para>0 NUMERIC 数字0-9</para>
-        /// <para>1 ALPHANUMERIC 数字0-9、大写字母A-Z、符号(空格)$%*+-./:</para>
-        /// <para>2 BYTE(ISO-8859-1)</para>
-        /// <para>3 BYTE(UTF-8)</para>
-        /// </param>
-        public QRCode(string content, int? mode) : this(content, mode, null, null) { }
-
-        /// <summary>
-        /// 构造二维码
-        /// <para>版本号 最小版本</para>
-        /// </summary>
-        /// <param name="content">
-        /// 内容
-        /// </param>
-        /// <param name="mode">
-        /// 编码模式(默认自动探测)
-        /// <para>0 NUMERIC 数字0-9</para>
-        /// <para>1 ALPHANUMERIC 数字0-9、大写字母A-Z、符号(空格)$%*+-./:</para>
-        /// <para>2 BYTE(ISO-8859-1)</para>
-        /// <para>3 BYTE(UTF-8)</para>
         /// </param>
         /// <param name="level">
         /// 纠错等级
@@ -73,13 +66,21 @@ namespace Z.QRCodeEncoder.Net
         /// <para>2 Q 25%</para>
         /// <para>3 H 30%</para>
         /// </param>
-        public QRCode(string content, int? mode, int? level) : this(content, mode, level, null) { }
+        public QRCode(string content, int? level) : this(content, level, null, null) { }
 
         /// <summary>
         /// 构造二维码
+        /// <para>版本号 最小版本</para>
         /// </summary>
         /// <param name="content">
         /// 内容
+        /// </param>
+        /// <param name="level">
+        /// 纠错等级
+        /// <para>0 L 7%(默认)</para>
+        /// <para>1 M 15%</para>
+        /// <para>2 Q 25%</para>
+        /// <para>3 H 30%</para>
         /// </param>
         /// <param name="mode">
         /// 编码模式(默认自动探测)
@@ -88,22 +89,51 @@ namespace Z.QRCodeEncoder.Net
         /// <para>2 BYTE(ISO-8859-1)</para>
         /// <para>3 BYTE(UTF-8)</para>
         /// </param>
+        public QRCode(string content, int? level, int? mode) : this(content, level, mode, null) { }
+
+        /// <summary>
+        /// 构造二维码
+        /// </summary>
+        /// <param name="content">
+        /// 内容
+        /// </param>
         /// <param name="level">
         /// 纠错等级
         /// <para>0 L 7%(默认)</para>
         /// <para>1 M 15%</para>
         /// <para>2 Q 25%</para>
         /// <para>3 H 30%</para>
+        /// </param>
+        /// <param name="mode">
+        /// 编码模式(默认自动探测)
+        /// <para>0 NUMERIC 数字0-9</para>
+        /// <para>1 ALPHANUMERIC 数字0-9、大写字母A-Z、符号(空格)$%*+-./:</para>
+        /// <para>2 BYTE(ISO-8859-1)</para>
+        /// <para>3 BYTE(UTF-8)</para>
         /// </param>
         /// <param name="versionNumber">
         /// 版本号(默认最小版本)
         /// <para>[1,40]</para>
         /// </param>
-        public QRCode(string content, int? mode, int? level, int? versionNumber)
+        public QRCode(string content, int? level, int? mode, int? versionNumber)
         {
             int modeValue;
             int levelValue;
             /* 数据 */
+            // 纠错等级
+            if (level == null)
+            {
+                levelValue = 0;
+            }
+            else if (level < 0 || level > 3)
+            {
+                throw new Exception("纠错等级 " + level + " 不合法！应为 [0,3]");
+            }
+            else
+            {
+                levelValue = (int)level;
+            }
+            Level = levelValue;
             // 编码模式
             if (mode == null)
             {
@@ -111,12 +141,13 @@ namespace Z.QRCodeEncoder.Net
             }
             else if (mode < 0 || mode > 3)
             {
-                throw new Exception("编码模式不合法！");
+                throw new Exception("编码模式 " + mode + " 不合法！应为 [0,3]");
             }
             else
             {
                 modeValue = (int)mode;
             }
+            Mode = modeValue;
             // 内容bytes
             byte[] contentBytes;
             if (modeValue == 3)
@@ -127,21 +158,9 @@ namespace Z.QRCodeEncoder.Net
             {
                 contentBytes = ISO88591.GetBytes(content);
             }
-            // 纠错等级
-            if (level == null)
-            {
-                levelValue = 0;
-            }
-            else if (mode < 0 || mode > 3)
-            {
-                throw new Exception("纠错等级不合法！");
-            }
-            else
-            {
-                levelValue = (int)level;
-            }
             // 版本
             Version = new Version(contentBytes.Length, levelValue, modeValue, versionNumber);
+            VersionNumber = Version.VersionNumber;
             // 数据bits
             bool[] dataBits = new bool[Version.DataBits];
             // 填充数据
@@ -231,7 +250,8 @@ namespace Z.QRCodeEncoder.Net
 
             /* 构造掩模模板 */
             MaskPattern = new MaskPattern(dataAndEcBits, Version, levelValue);
-            Matrix = QRCodeUtils.Convert(MaskPattern.BestPattern, Version.Dimension);
+            MaskPatternNumber = MaskPattern.Best;
+            Matrix = QRCodeUtils.Convert(MaskPattern.Patterns[MaskPatternNumber], Version.Dimension);
         }
 
         /// <summary>
@@ -402,7 +422,8 @@ namespace Z.QRCodeEncoder.Net
                 ptr = (((ptr - 1) / 8) + 1) * 8;
                 // 补齐符 交替0b11101100=0xEC和0b00010001=0x11至填满
                 // 数据来源 ISO/IEC 18004-2015 -> 7.4.10
-                for (int i = 0; i < dataBits - ptr; i++)
+                int count = (dataBits - ptr) / 8;
+                for (int i = 0; i < count; i++)
                 {
                     if (i % 2 == 0)
                     {
@@ -469,13 +490,15 @@ namespace Z.QRCodeEncoder.Net
         private static readonly Encoding UTF8 = Encoding.UTF8;
 
         /// <summary>
-        /// 数字0xEC前8bit
+        /// 数字0xEC
+        /// <para>数据来源 ISO/IEC 18004-2015 -> 7.4.10 -> 11101100</para>
         /// </summary>
-        private static readonly bool[] NUMBER_0xEC_8BITS = { true, true, true, false, true, true, false, false };
+        private static readonly bool[] NUMBER_0xEC_8BITS = QRCodeUtils.GetBits(0xEC, 8);
         /// <summary>
-        /// 数字0x11前8bit
+        /// 数字0x11
+        /// <para>数据来源 ISO/IEC 18004-2015 -> 7.4.10 -> 00010001</para>
         /// </summary>
-        private static readonly bool[] NUMBER_0x11_8BITS = { false, false, false, true, false, false, false, true };
+        private static readonly bool[] NUMBER_0x11_8BITS = QRCodeUtils.GetBits(0x11, 8);
 
         /// <summary>
         /// ALPHANUMERIC模式映射表
@@ -489,7 +512,8 @@ namespace Z.QRCodeEncoder.Net
         /// <para>- [0x2D] [41]</para>
         /// <para>. [0x2E] [42]</para>
         /// <para>/ [0x2F] [43]</para>
-        /// <para>: [0x3A] [44]</para>
+        /// <para>: [0x3A] [44]</para>d
+        /// <para>数据来源 ISO/IEC 18004-2015 -> 7.4.5 -> Table 6</para>
         /// </summary>
         private static readonly byte[] ALPHA_NUMERIC_TABLE = new byte[]
         {

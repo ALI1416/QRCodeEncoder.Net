@@ -22,11 +22,32 @@ namespace Z.QRCodeEncoder.Net
         /// 最好的模板下标
         /// </summary>
         public readonly int Best;
+
         /// <summary>
-        /// 最好的模板
-        /// <para>0白 1黑</para>
+        /// 格式信息
         /// </summary>
-        public readonly byte[,] BestPattern;
+        private static readonly bool[,][] FormatInfo = new bool[4, 8][];
+        /// <summary>
+        /// 版本信息(版本7+)
+        /// </summary>
+        private static readonly bool[][] VersionInfo = new bool[34][];
+
+        static MaskPattern()
+        {
+            // 初始化格式信息
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    FormatInfo[i, j] = QRCodeUtils.GetBits(FORMAT_INFO[i, j], 15);
+                }
+            }
+            // 初始化版本信息(版本7+)
+            for (int i = 0; i < 34; i++)
+            {
+                VersionInfo[i] = QRCodeUtils.GetBits(VERSION_INFO[i], 18);
+            }
+        }
 
         /// <summary>
         /// 构建模板
@@ -77,7 +98,6 @@ namespace Z.QRCodeEncoder.Net
                     Best = i;
                 }
             }
-            BestPattern = Patterns[Best];
         }
 
         /// <summary>
@@ -278,7 +298,7 @@ namespace Z.QRCodeEncoder.Net
         /// <param name="id">模板序号</param>
         private static void EmbedFormatInfo(byte[,] pattern, int dimension, int level, int id)
         {
-            bool[] formatInfo = FORMAT_INFO[level, id];
+            bool[] formatInfo = FormatInfo[level, id];
             for (int i = 0; i < 15; i++)
             {
                 byte isBlack = (byte)(formatInfo[14 - i] ? 1 : 0);
@@ -313,7 +333,7 @@ namespace Z.QRCodeEncoder.Net
             {
                 return;
             }
-            bool[] versionInfo = VERSION_INFO[versionNumber - 7];
+            bool[] versionInfo = VersionInfo[versionNumber - 7];
             int index = 17;
             for (int i = 0; i < 6; i++)
             {
@@ -764,108 +784,51 @@ namespace Z.QRCodeEncoder.Net
 
         /// <summary>
         /// 格式信息
-        /// <para>索引[纠错等级,模板序号][格式信息]:4x8x15</para>
+        /// <para>索引[纠错等级,模板序号]:4x8</para>
+        /// <para>数据来源 ISO/IEC 18004-2015 -> Annex C -> Table C.1 -> Sequence after masking (QR Code symbols) -> hex列</para>
         /// </summary>
-        private static readonly bool[,][] FORMAT_INFO = new bool[,][]
+        private static readonly int[,] FORMAT_INFO = new int[,]
         {
-            {
-                new bool[] { true,  true,  true, false,  true,  true,  true,  true,  true, false, false, false,  true, false, false, },
-                new bool[] { true,  true,  true, false, false,  true, false,  true,  true,  true,  true, false, false,  true,  true, },
-                new bool[] { true,  true,  true,  true,  true, false,  true,  true, false,  true, false,  true, false,  true, false, },
-                new bool[] { true,  true,  true,  true, false, false, false,  true, false, false,  true,  true,  true, false,  true, },
-                new bool[] { true,  true, false, false,  true,  true, false, false, false,  true, false,  true,  true,  true,  true, },
-                new bool[] { true,  true, false, false, false,  true,  true, false, false, false,  true,  true, false, false, false, },
-                new bool[] { true,  true, false,  true,  true, false, false, false,  true, false, false, false, false, false,  true, },
-                new bool[] { true,  true, false,  true, false, false,  true, false,  true,  true,  true, false,  true,  true, false, },
-            },
-            {
-                new bool[] { true, false,  true, false,  true, false, false, false, false, false,  true, false, false,  true, false, },
-                new bool[] { true, false,  true, false, false, false,  true, false, false,  true, false, false,  true, false,  true, },
-                new bool[] { true, false,  true,  true,  true,  true, false, false,  true,  true,  true,  true,  true, false, false, },
-                new bool[] { true, false,  true,  true, false,  true,  true, false,  true, false, false,  true, false,  true,  true, },
-                new bool[] { true, false, false, false,  true, false,  true,  true,  true,  true,  true,  true, false, false,  true, },
-                new bool[] { true, false, false, false, false, false, false,  true,  true, false, false,  true,  true,  true, false, },
-                new bool[] { true, false, false,  true,  true,  true,  true,  true, false, false,  true, false,  true,  true,  true, },
-                new bool[] { true, false, false,  true, false,  true, false,  true, false,  true, false, false, false, false, false, },
-            },
-            {
-                new bool[] {false,  true,  true, false,  true, false,  true, false,  true, false,  true,  true,  true,  true,  true, },
-                new bool[] {false,  true,  true, false, false, false, false, false,  true,  true, false,  true, false, false, false, },
-                new bool[] {false,  true,  true,  true,  true,  true,  true, false, false,  true,  true, false, false, false,  true, },
-                new bool[] {false,  true,  true,  true, false,  true, false, false, false, false, false, false,  true,  true, false, },
-                new bool[] {false,  true, false, false,  true, false, false,  true, false,  true,  true, false,  true, false, false, },
-                new bool[] {false,  true, false, false, false, false,  true,  true, false, false, false, false, false,  true,  true, },
-                new bool[] {false,  true, false,  true,  true,  true, false,  true,  true, false,  true,  true, false,  true, false, },
-                new bool[] {false,  true, false,  true, false,  true,  true,  true,  true,  true, false,  true,  true, false,  true, },
-            },
-            {
-                new bool[] {false, false,  true, false,  true,  true, false,  true, false, false, false,  true, false, false,  true, },
-                new bool[] {false, false,  true, false, false,  true,  true,  true, false,  true,  true,  true,  true,  true, false, },
-                new bool[] {false, false,  true,  true,  true, false, false,  true,  true,  true, false, false,  true,  true,  true, },
-                new bool[] {false, false,  true,  true, false, false,  true,  true,  true, false,  true, false, false, false, false, },
-                new bool[] {false, false, false, false,  true,  true,  true, false,  true,  true, false, false, false,  true, false, },
-                new bool[] {false, false, false, false, false,  true, false, false,  true, false,  true, false,  true, false,  true, },
-                new bool[] {false, false, false,  true,  true, false,  true, false, false, false, false,  true,  true, false, false, },
-                new bool[] {false, false, false,  true, false, false, false, false, false,  true,  true,  true, false,  true,  true, },
-            },
+            { 0x77C4, 0x72F3, 0x7DAA, 0x789D, 0x662F, 0x6318, 0x6C41, 0x6976, }, // 0
+            { 0x5412, 0x5125, 0x5E7C, 0x5B4B, 0x45F9, 0x40CE, 0x4F97, 0x4AA0, }, // 1
+            { 0x355F, 0x3068, 0x3F31, 0x3A06, 0x24B4, 0x2183, 0x2EDA, 0x2BED, }, // 2
+            { 0x1689, 0x13BE, 0x1CE7, 0x19D0, 0x0762, 0x0255, 0x0D0C, 0x083B, }, // 3
         };
 
         /// <summary>
         /// 版本信息(版本7+)
-        /// <para>索引[版本号][版本信息]:34x18</para>
+        /// <para>索引[版本号]:34</para>
+        /// <para>数据来源 ISO/IEC 18004-2015 -> Annex D -> Table D.1 -> Hex equivalent列</para>
         /// </summary>
-        private static readonly bool[][] VERSION_INFO = new bool[][]
+        private static readonly int[] VERSION_INFO = new int[]
         {
-            new bool[] {false, false, false,  true,  true,  true,  true,  true, false, false,  true, false, false,  true, false,  true, false, false, },
-            new bool[] {false, false,  true, false, false, false, false,  true, false,  true,  true, false,  true,  true,  true,  true, false, false, },
-            new bool[] {false, false,  true, false, false,  true,  true, false,  true, false,  true, false, false,  true,  true, false, false,  true, },
-            new bool[] {false, false,  true, false,  true, false, false,  true, false, false,  true,  true, false,  true, false, false,  true,  true, },
-            new bool[] {false, false,  true, false,  true,  true,  true, false,  true,  true,  true,  true,  true,  true, false,  true,  true, false, },
-            new bool[] {false, false,  true,  true, false, false, false,  true,  true,  true, false,  true,  true, false, false, false,  true, false, },
-            new bool[] {false, false,  true,  true, false,  true,  true, false, false, false, false,  true, false, false, false,  true,  true,  true, },
-            new bool[] {false, false,  true,  true,  true, false, false,  true,  true, false, false, false, false, false,  true,  true, false,  true, },
-            new bool[] {false, false,  true,  true,  true,  true,  true, false, false,  true, false, false,  true, false,  true, false, false, false, },
-            new bool[] {false,  true, false, false, false, false,  true, false,  true,  true, false,  true,  true,  true,  true, false, false, false, },
-            new bool[] {false,  true, false, false, false,  true, false,  true, false, false, false,  true, false,  true,  true,  true, false,  true, },
-            new bool[] {false,  true, false, false,  true, false,  true, false,  true, false, false, false, false,  true, false,  true,  true,  true, },
-            new bool[] {false,  true, false, false,  true,  true, false,  true, false,  true, false, false,  true,  true, false, false,  true, false, },
-            new bool[] {false,  true, false,  true, false, false,  true, false, false,  true,  true, false,  true, false, false,  true,  true, false, },
-            new bool[] {false,  true, false,  true, false,  true, false,  true,  true, false,  true, false, false, false, false, false,  true,  true, },
-            new bool[] {false,  true, false,  true,  true, false,  true, false, false, false,  true,  true, false, false,  true, false, false,  true, },
-            new bool[] {false,  true, false,  true,  true,  true, false,  true,  true,  true,  true,  true,  true, false,  true,  true, false, false, },
-            new bool[] {false,  true,  true, false, false, false,  true,  true,  true, false,  true,  true, false, false, false,  true, false, false, },
-            new bool[] {false,  true,  true, false, false,  true, false, false, false,  true,  true,  true,  true, false, false, false, false,  true, },
-            new bool[] {false,  true,  true, false,  true, false,  true,  true,  true,  true,  true, false,  true, false,  true, false,  true,  true, },
-            new bool[] {false,  true,  true, false,  true,  true, false, false, false, false,  true, false, false, false,  true,  true,  true, false, },
-            new bool[] {false,  true,  true,  true, false, false,  true,  true, false, false, false, false, false,  true,  true, false,  true, false, },
-            new bool[] {false,  true,  true,  true, false,  true, false, false,  true,  true, false, false,  true,  true,  true,  true,  true,  true, },
-            new bool[] {false,  true,  true,  true,  true, false,  true,  true, false,  true, false,  true,  true,  true, false,  true, false,  true, },
-            new bool[] {false,  true,  true,  true,  true,  true, false, false,  true, false, false,  true, false,  true, false, false, false, false, },
-            new bool[] { true, false, false, false, false, false,  true, false, false,  true,  true,  true, false,  true, false,  true, false,  true, },
-            new bool[] { true, false, false, false, false,  true, false,  true,  true, false,  true,  true,  true,  true, false, false, false, false, },
-            new bool[] { true, false, false, false,  true, false,  true, false, false, false,  true, false,  true,  true,  true, false,  true, false, },
-            new bool[] { true, false, false, false,  true,  true, false,  true,  true,  true,  true, false, false,  true,  true,  true,  true,  true, },
-            new bool[] { true, false, false,  true, false, false,  true, false,  true,  true, false, false, false, false,  true, false,  true,  true, },
-            new bool[] { true, false, false,  true, false,  true, false,  true, false, false, false, false,  true, false,  true,  true,  true, false, },
-            new bool[] { true, false, false,  true,  true, false,  true, false,  true, false, false,  true,  true, false, false,  true, false, false, },
-            new bool[] { true, false, false,  true,  true,  true, false,  true, false,  true, false,  true, false, false, false, false, false,  true, },
-            new bool[] { true, false,  true, false, false, false,  true,  true, false, false, false,  true,  true, false,  true, false, false,  true, },
+                     0x07C94, 0x085BC, 0x09A99, 0x0A4D3, // 7-10
+            0x0BBF6, 0x0C762, 0x0D847, 0x0E60D, 0x0F928, // 11-15
+            0x10B78, 0x1145D, 0x12A17, 0x13532, 0x149A6, // 16-20
+            0x15683, 0x168C9, 0x177EC, 0x18EC4, 0x191E1, // 21-25
+            0x1AFAB, 0x1B08E, 0x1CC1A, 0x1D33F, 0x1ED75, // 26-30
+            0x1F250, 0x209D5, 0x216F0, 0x228BA, 0x2379F, // 31-35
+            0x24B0B, 0x2542E, 0x26A64, 0x27541, 0x28C69, // 36-40
         };
 
         /// <summary>
         /// 惩戒规则1惩戒分 3
+        /// <para>数据来源 ISO/IEC 18004-2015 -> 7.8.3.1 -> N1</para>
         /// </summary>
         private static readonly int PENALTY1 = 3;
         /// <summary>
         /// 惩戒规则2惩戒分 3
+        /// <para>数据来源 ISO/IEC 18004-2015 -> 7.8.3.1 -> N2</para>
         /// </summary>
         private static readonly int PENALTY2 = 3;
         /// <summary>
         /// 惩戒规则3惩戒分 40
+        /// <para>数据来源 ISO/IEC 18004-2015 -> 7.8.3.1 -> N3</para>
         /// </summary>
         private static readonly int PENALTY3 = 40;
         /// <summary>
         /// 惩戒规则4惩戒分 10
+        /// <para>数据来源 ISO/IEC 18004-2015 -> 7.8.3.1 -> N4</para>
         /// </summary>
         private static readonly int PENALTY4 = 10;
 

@@ -1,4 +1,6 @@
-﻿namespace Z.QRCodeEncoder.Net
+﻿using System;
+
+namespace Z.QRCodeEncoder.Net
 {
 
     /// <summary>
@@ -41,7 +43,21 @@
             GenericGFPoly info = new GenericGFPoly(coefficients);
             info = info.MultiplyByMonomial(degree, 1);
             GenericGFPoly remainder = info.RemainderOfDivide(GenericGFPolyArray[degree]);
-            return remainder.Coefficients;
+            // 纠错码
+            int[] result = remainder.Coefficients;
+            int length = result.Length;
+            // 长度不够前面补0
+            int padding = degree - length;
+            if (padding == 0)
+            {
+                return result;
+            }
+            else
+            {
+                int[] resultPadding = new int[degree];
+                Array.Copy(result, 0, resultPadding, padding, length);
+                return resultPadding;
+            }
         }
 
     }
