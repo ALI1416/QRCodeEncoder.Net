@@ -417,7 +417,6 @@ namespace Z.QRCodeEncoder.Net
             switch (id)
             {
                 default:
-                case 0:
                     {
                         return ((x + y) % 2) == 0;
                     }

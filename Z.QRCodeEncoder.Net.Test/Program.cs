@@ -33,10 +33,10 @@ namespace Z.QRCodeEncoder.Net.Test
         public static void Test()
         {
             // 生成二维码
-            string content = "1234";
-            int level = 1;
-            int mode = 0;
-            int versionNumber = 10;
+            string content = "1234😀";
+            int level = 0;
+            int? versionNumber = 1;
+            int? mode = 3;
             string path = Program.path + "Test/";
             Directory.CreateDirectory(path);
             QRCode qrCode1 = new QRCode(content, level, mode, versionNumber);
@@ -54,6 +54,13 @@ namespace Z.QRCodeEncoder.Net.Test
             BarcodeReader reader2 = new BarcodeReader();
             Result result2 = reader2.Decode(bitmap2);
             Console.WriteLine(result2);
+            // 生成8个模板
+            byte[][,] patterns = qrCode1.MaskPattern.Patterns;
+            for (int i = 0; i < 8; i++)
+            {
+                Bitmap bitmap = ImageUtils.QrBytes2Bitmap(patterns[i], 10);
+                ImageUtils.SaveBitmap(bitmap, path + "pattern" + i + ".png");
+            }
         }
 
         /// <summary>
@@ -93,7 +100,7 @@ namespace Z.QRCodeEncoder.Net.Test
             IntegrityTest("12345", 0);
             IntegrityTest("ABCD", 1);
             IntegrityTest("abc", 2);
-            IntegrityTest("啊", 3);
+            IntegrityTest("啊😀", 3);
         }
 
         /// <summary>
@@ -127,12 +134,13 @@ namespace Z.QRCodeEncoder.Net.Test
         /// <summary>
         /// 获取配置
         /// </summary>
-        private static Dictionary<EncodeHintType, object> GetHints(int versionNumber, int mode)
+        private static Dictionary<EncodeHintType, object> GetHints(int? versionNumber, int? mode)
         {
-            Dictionary<EncodeHintType, object> hints = new Dictionary<EncodeHintType, object>()
+            Dictionary<EncodeHintType, object> hints = new Dictionary<EncodeHintType, object>();
+            if (versionNumber != null)
             {
-                { EncodeHintType.QR_VERSION, versionNumber }
-            };
+                hints.Add(EncodeHintType.QR_VERSION, versionNumber);
+            }
             if (mode == 3)
             {
                 hints.Add(EncodeHintType.CHARACTER_SET, "UTF-8");

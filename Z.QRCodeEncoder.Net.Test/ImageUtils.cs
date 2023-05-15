@@ -45,6 +45,35 @@ namespace Z.QRCodeEncoder.Net.Test
         }
 
         /// <summary>
+        /// 二维码byte[,]转Bitmap
+        /// </summary>
+        /// <param name="bytes">byte[][](0白 1黑)</param>
+        /// <param name="pixelSize">像素尺寸</param>
+        /// <returns>Bitmap</returns>
+        public static Bitmap QrBytes2Bitmap(byte[,] bytes, int pixelSize)
+        {
+            int length = bytes.GetLength(0);
+            List<Rectangle> rects = new List<Rectangle>();
+            for (int x = 0; x < length; x++)
+            {
+                for (int y = 0; y < length; y++)
+                {
+                    if (bytes[x, y] == 1)
+                    {
+                        rects.Add(new Rectangle((x + 1) * pixelSize, (y + 1) * pixelSize, pixelSize, pixelSize));
+                    }
+                }
+            }
+            int size = (length + 2) * pixelSize;
+            Bitmap bitmap = new Bitmap(size, size);
+            using (Graphics g = Graphics.FromImage(bitmap))
+            {
+                g.FillRectangles(BLACK_BRUSH, rects.ToArray());
+            }
+            return bitmap;
+        }
+
+        /// <summary>
         /// 二维码byte[][]转Bitmap
         /// </summary>
         /// <param name="bytes">byte[][](0白 1黑)</param>
@@ -54,6 +83,7 @@ namespace Z.QRCodeEncoder.Net.Test
         {
             int length = bytes.Length;
             List<Rectangle> rects = new List<Rectangle>();
+            // ZXing反转了xy轴
             for (int y = 0; y < length; y++)
             {
                 for (int x = 0; x < length; x++)

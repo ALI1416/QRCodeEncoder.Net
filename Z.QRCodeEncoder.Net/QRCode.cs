@@ -145,6 +145,11 @@ namespace Z.QRCodeEncoder.Net
             }
             else
             {
+                int detectionMode = DetectionMode(content);
+                if (mode < detectionMode)
+                {
+                    throw new Exception("编码模式 " + mode + " 太小！最小为 " + detectionMode);
+                }
                 modeValue = (int)mode;
             }
             Mode = modeValue;
@@ -186,7 +191,6 @@ namespace Z.QRCodeEncoder.Net
                     }
                 // 填充编码模式为BYTE编码格式为UTF-8的数据
                 default:
-                case 3:
                     {
                         ModeByteUtf8(dataBits, contentBytes, Version);
                         break;
@@ -452,6 +456,11 @@ namespace Z.QRCodeEncoder.Net
         private static int DetectionMode(string content)
         {
             int length = content.Length;
+            // 为了与ZXing结果保持一致，长度为0时使用BYTE(ISO-8859-1)编码
+            if (length == 0)
+            {
+                return 2;
+            }
             // BYTE(UTF-8)
             for (int i = 0; i < length; i++)
             {
@@ -463,7 +472,7 @@ namespace Z.QRCodeEncoder.Net
             // BYTE(ISO-8859-1)
             for (int i = 0; i < length; i++)
             {
-                if (content[i] > 127)
+                if (content[i] > 127 || ALPHA_NUMERIC_TABLE[content[i]] > 44)
                 {
                     return 2;
                 }
@@ -517,14 +526,14 @@ namespace Z.QRCodeEncoder.Net
         /// </summary>
         private static readonly byte[] ALPHA_NUMERIC_TABLE = new byte[]
         {
-            255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, // 0x00-0x0F
-            255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, // 0x10-0x1F
-             36, 255, 255, 255,  37,  38, 255, 255, 255, 255,  39,  40, 255,  41,  42,  43, // 0x20-0x2F
-              0,   1,   2,   3,   4,   5,   6,   7,   8,   9,  44, 255, 255, 255, 255, 255, // 0x30-0x3F
-            255,  10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23,  24, // 0x40-0x4F
-             25,  26,  27,  28,  29,  30,  31,  32,  33,  34,  35, 255, 255, 255, 255, 255, // 0x50-0x5F
-            255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, // 0x60-0x6F
-            255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, // 0x70-0x7F
+            127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, // 0x00-0x0F
+            127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, // 0x10-0x1F
+             36, 127, 127, 127,  37,  38, 127, 127, 127, 127,  39,  40, 127,  41,  42,  43, // 0x20-0x2F
+              0,   1,   2,   3,   4,   5,   6,   7,   8,   9,  44, 127, 127, 127, 127, 127, // 0x30-0x3F
+            127,  10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23,  24, // 0x40-0x4F
+             25,  26,  27,  28,  29,  30,  31,  32,  33,  34,  35, 127, 127, 127, 127, 127, // 0x50-0x5F
+            127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, // 0x60-0x6F
+            127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, // 0x70-0x7F
         };
 
     }

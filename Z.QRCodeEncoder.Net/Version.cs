@@ -111,7 +111,6 @@ namespace Z.QRCodeEncoder.Net
                     }
                 // BYTE(UTF-8)
                 default:
-                case 3:
                     {
                         // 相比ISO-8859-1多1字节(不需要补齐符的情况下)
                         // ECI模式指示符(4bit)+ECI指定符(8bit)-结束符(4bit)=1字节
@@ -122,7 +121,7 @@ namespace Z.QRCodeEncoder.Net
             // 指定版本号
             if (VersionNumber == 0)
             {
-                throw new Exception("内容过长！");
+                throw new Exception("内容过长！最大版本号 40 也无法容下！请使用较低 纠错等级 或 减少内容！");
             }
             if (versionNumber < 1 || versionNumber > 40)
             {
@@ -157,8 +156,6 @@ namespace Z.QRCodeEncoder.Net
                     }
                 // BYTE
                 default:
-                case 2:
-                case 3:
                     {
                         // `内容字节数`bit数 1-9版本8bit 10-40版本16bit
                         // 数据来源 ISO/IEC 18004-2015 -> 7.4.1 -> Table 3 -> Byte mode列
