@@ -524,7 +524,7 @@ namespace Z.QRCodeEncoder.Net
         /// <para>- [0x2D] [41]</para>
         /// <para>. [0x2E] [42]</para>
         /// <para>/ [0x2F] [43]</para>
-        /// <para>: [0x3A] [44]</para>d
+        /// <para>: [0x3A] [44]</para>
         /// <para>数据来源 ISO/IEC 18004-2015 -> 7.4.5 -> Table 6</para>
         /// </summary>
         private static readonly byte[] ALPHA_NUMERIC_TABLE = new byte[]
