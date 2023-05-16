@@ -5,27 +5,35 @@
     <PackageId>Z.QRCodeEncoder.Net</PackageId>
     <Title>二维码生成器.Net版</Title>
     <Description>本项目参考了ZXing.Net，只编写了生成器部分，并对处理逻辑进行了大量优化，编译后dll文件仅40kb</Description>
-    <Version>0.0.1</Version>
-    <AssemblyVersion>0.0.1.0</AssemblyVersion>
-    <AssemblyFileVersion>0.0.1.0</AssemblyFileVersion>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <AssemblyFileVersion>1.0.0.1</AssemblyFileVersion>
     <Product>$(PackageId) ($(TargetFramework))</Product>
 
     <Authors>ali</Authors>
     <Company>404z.cn</Company>
     <PackageTags>QRCode</PackageTags>
+    <PackageIcon>logo.png</PackageIcon>
     <RepositoryType>git</RepositoryType>
     <NeutralLanguage>zh-Hans</NeutralLanguage>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Copyright>https://github.com/ALI1416/QRCodeEncoder.Net</Copyright>
     <RepositoryUrl>https://github.com/ALI1416/QRCodeEncoder.Net</RepositoryUrl>
+    <PackageReleaseNotes>https://github.com/ALI1416/QRCodeEncoder.Net</PackageReleaseNotes>
     <PackageProjectUrl>https://www.nuget.org/packages/Z.QRCodeEncoder.Net</PackageProjectUrl>
-    <PackageReleaseNotes>https://github.com/ALI1416/QRCodeEncoder.Net/blob/master/CHANGELOG.md</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="..\DesignDocument\logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+      <Visible>False</Visible>
+    </None>
     <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
+      <Visible>False</Visible>
     </None>
   </ItemGroup>
 </Project>

@@ -6,6 +6,9 @@ namespace Z.QRCodeEncoder.Net
     /// <summary>
     /// 通用Galois Fields域多项式(通用伽罗华域多项式)
     /// <para>仅适用于QrCode</para>
+    /// <para>@createDate 2023/05/16 11:11:11</para>
+    /// <para>@author ALI[ali-k@foxmail.com]</para>
+    /// <para>@since 1.0.0</para>
     /// </summary>
     public class GenericGFPoly
     {

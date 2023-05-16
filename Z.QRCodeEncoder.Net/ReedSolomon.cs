@@ -6,6 +6,9 @@ namespace Z.QRCodeEncoder.Net
     /// <summary>
     /// Reed-Solomon(里德-所罗门码)
     /// <para>仅适用于QrCode</para>
+    /// <para>@createDate 2023/05/16 11:11:11</para>
+    /// <para>@author ALI[ali-k@foxmail.com]</para>
+    /// <para>@since 1.0.0</para>
     /// </summary>
     public class ReedSolomon
     {

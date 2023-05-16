@@ -6,6 +6,9 @@ namespace Z.QRCodeEncoder.Net
 
     /// <summary>
     /// 二维码
+    /// <para>@createDate 2023/05/16 11:11:11</para>
+    /// <para>@author ALI[ali-k@foxmail.com]</para>
+    /// <para>@since 1.0.0</para>
     /// </summary>
     public class QRCode
     {
