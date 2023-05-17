@@ -1,6 +1,6 @@
 # QRCodeEncoder.Net 二维码生成器.Net版
 
-[![License](https://img.shields.io/github/license/ali1416/QRCodeEncoder.Net?label=License)](http://www.apache.org/licenses/)
+[![License](https://img.shields.io/github/license/ali1416/QRCodeEncoder.Net?label=License)](https://www.apache.org/licenses/LICENSE-2.0.txt)
 [![.Net Support](https://img.shields.io/badge/.NET%20Standard-2.0+-green)](https://openjdk.org/)
 [![NuGet Gallery](https://img.shields.io/nuget/v/Z.QRCodeEncoder.Net?label=NuGet%20Gallery)](https://www.nuget.org/packages/Z.QRCodeEncoder.Net)
 [![Tag](https://img.shields.io/github/v/tag/ali1416/QRCodeEncoder.Net?label=Tag)](https://github.com/ALI1416/QRCodeEncoder.Net/tags)
@@ -124,14 +124,13 @@ public static void SaveBitmap(Bitmap bitmap, string path)
 
 - [micjahn/ZXing.Net](https://github.com/micjahn/ZXing.Net)
 
-## 交流
+## 交流与赞助
 
-- [x] QQ：`1416978277`
-- [x] 微信：`1416978277`
-- [x] 支付宝：`1416978277@qq.com`
+- [x] `QQ` : `1416978277`
+- [x] `微信` : `1416978277`
+- [x] `支付宝` : `1416978277@qq.com`
+- [x] `电子邮箱` : `1416978277@qq.com`
 
 ![交流](https://cdn.jsdelivr.net/gh/ALI1416/ALI1416/image/contact.png)
-
-## 赞助
 
 ![赞助](https://cdn.jsdelivr.net/gh/ALI1416/ALI1416/image/donate.png)
