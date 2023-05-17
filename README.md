@@ -6,6 +6,8 @@
 [![Tag](https://img.shields.io/github/v/tag/ali1416/QRCodeEncoder.Net?label=Tag)](https://github.com/ALI1416/QRCodeEncoder.Net/tags)
 [![Repo Size](https://img.shields.io/github/repo-size/ali1416/QRCodeEncoder.Net?label=Repo%20Size&color=success)](https://github.com/ALI1416/QRCodeEncoder.Net/archive/refs/heads/master.zip)
 
+[![DotNet CI](https://github.com/ALI1416/QRCodeEncoder.Net/actions/workflows/ci.yml/badge.svg)](https://github.com/ALI1416/QRCodeEncoder.Net/actions/workflows/ci.yml)
+
 ## 简介
 
 本项目参考了[micjahn/ZXing.Net](https://github.com/micjahn/ZXing.Net)，只编写了生成器部分，并对处理逻辑进行了大量优化，编译后dll文件仅40kb
