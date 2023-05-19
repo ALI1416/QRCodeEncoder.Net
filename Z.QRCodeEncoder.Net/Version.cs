@@ -121,22 +121,25 @@ namespace Z.QRCodeEncoder.Net
                         break;
                     }
             }
-            // 指定版本号
             if (VersionNumber == 0)
             {
                 throw new Exception("内容过长！最大版本号 40 也无法容下！请使用较低 纠错等级 或 减少内容！");
             }
-            if (versionNumber < 1 || versionNumber > 40)
+            // 指定版本号
+            if (versionNumber != null)
             {
-                throw new Exception("版本号 " + versionNumber + " 不合法！应为 [1,40]");
-            }
-            else if (VersionNumber > versionNumber)
-            {
-                throw new Exception("版本号 " + versionNumber + " 太小！最小为 " + VersionNumber);
-            }
-            else if (versionNumber != null)
-            {
-                VersionNumber = (int)versionNumber;
+                if (versionNumber < 1 || versionNumber > 40)
+                {
+                    throw new Exception("版本号 " + versionNumber + " 不合法！应为 [1,40]");
+                }
+                else if (VersionNumber > versionNumber)
+                {
+                    throw new Exception("版本号 " + versionNumber + " 太小！最小为 " + VersionNumber);
+                }
+                else
+                {
+                    VersionNumber = (int)versionNumber;
+                }
             }
             // `内容字节数`bit数
             switch (mode)

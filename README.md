@@ -17,7 +17,7 @@
 ## 依赖导入
 
 ```bat
-dotnet add package Z.QRCodeEncoder.Net --version 1.0.0
+dotnet add package Z.QRCodeEncoder.Net --version 1.0.1
 ```
 
 ## 方法和参数

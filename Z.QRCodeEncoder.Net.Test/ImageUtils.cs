@@ -4,6 +4,7 @@ using System.Drawing;
 
 namespace Z.QRCodeEncoder.Net.Test
 {
+
     /// <summary>
     /// 图像工具
     /// </summary>
