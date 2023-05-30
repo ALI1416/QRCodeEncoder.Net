@@ -70,6 +70,7 @@ namespace Z.QRCodeEncoder.Net
         /// </param>
         public MaskPattern(bool[] data, Version version, int level)
         {
+            int bestValue = -1;
             int dimension = version.Dimension;
             int versionNumber = version.VersionNumber;
             for (int i = 0; i < 8; i++)
@@ -92,15 +93,15 @@ namespace Z.QRCodeEncoder.Net
             }
             // 找到最好的模板
             int minPenalty = int.MaxValue;
-            Best = -1;
             for (int i = 0; i < 8; i++)
             {
                 if (Penalties[i] < minPenalty)
                 {
                     minPenalty = Penalties[i];
-                    Best = i;
+                    bestValue = i;
                 }
             }
+            Best = bestValue;
         }
 
         /// <summary>
