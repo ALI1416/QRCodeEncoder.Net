@@ -1,4 +1,4 @@
-﻿namespace Z.QRCodeEncoder.Net
+namespace Z.QRCodeEncoder.Net
 {
 
     /// <summary>

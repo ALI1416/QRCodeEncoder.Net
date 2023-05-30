@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Z.QRCodeEncoder.Net
 {
@@ -91,25 +91,26 @@ namespace Z.QRCodeEncoder.Net
         /// </param>
         public Version(int length, int level, int mode, int? versionNumber)
         {
+            int versionNumberValue;
             // 最小版本号
             switch (mode)
             {
                 // NUMERIC 数字0-9
                 case 0:
                     {
-                        VersionNumber = ModeNumeric(length, level) + 1;
+                        versionNumberValue = ModeNumeric(length, level) + 1;
                         break;
                     }
                 // ALPHANUMERIC 数字0-9、大写字母A-Z、符号(空格)$%*+-./:
                 case 1:
                     {
-                        VersionNumber = ModeAlphaNumeric(length, level) + 1;
+                        versionNumberValue = ModeAlphaNumeric(length, level) + 1;
                         break;
                     }
                 // BYTE(ISO-8859-1)
                 case 2:
                     {
-                        VersionNumber = ModeByte(length, level) + 1;
+                        versionNumberValue = ModeByte(length, level) + 1;
                         break;
                     }
                 // BYTE(UTF-8)
@@ -117,11 +118,11 @@ namespace Z.QRCodeEncoder.Net
                     {
                         // 相比ISO-8859-1多1字节(不需要补齐符的情况下)
                         // ECI模式指示符(4bit)+ECI指定符(8bit)-结束符(4bit)=1字节
-                        VersionNumber = ModeByte(length + 1, level) + 1;
+                        versionNumberValue = ModeByte(length + 1, level) + 1;
                         break;
                     }
             }
-            if (VersionNumber == 0)
+            if (versionNumberValue == 0)
             {
                 throw new Exception("内容过长！最大版本号 40 也无法容下！请使用较低 纠错等级 或 减少内容！");
             }
@@ -132,15 +133,16 @@ namespace Z.QRCodeEncoder.Net
                 {
                     throw new Exception("版本号 " + versionNumber + " 不合法！应为 [1,40]");
                 }
-                else if (VersionNumber > versionNumber)
+                else if (versionNumberValue > versionNumber)
                 {
-                    throw new Exception("版本号 " + versionNumber + " 太小！最小为 " + VersionNumber);
+                    throw new Exception("版本号 " + versionNumber + " 太小！最小为 " + versionNumberValue);
                 }
                 else
                 {
-                    VersionNumber = (int)versionNumber;
+                    versionNumberValue = (int)versionNumber;
                 }
             }
+            VersionNumber = versionNumberValue;
             // `内容字节数`bit数
             switch (mode)
             {

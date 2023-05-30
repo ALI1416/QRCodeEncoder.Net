@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.Drawing;
 
@@ -22,7 +22,7 @@ namespace Z.QRCodeEncoder.Net.Test
         /// <param name="bytes">bool[,](false白 true黑)</param>
         /// <param name="pixelSize">像素尺寸</param>
         /// <returns>Bitmap</returns>
-        public static Bitmap QrBytes2Bitmap(bool[,] bytes, int pixelSize)
+        public static Bitmap QrMatrix2Bitmap(bool[,] bytes, int pixelSize)
         {
             int length = bytes.GetLength(0);
             List<Rectangle> rects = new List<Rectangle>();
@@ -51,7 +51,7 @@ namespace Z.QRCodeEncoder.Net.Test
         /// <param name="bytes">byte[][](0白 1黑)</param>
         /// <param name="pixelSize">像素尺寸</param>
         /// <returns>Bitmap</returns>
-        public static Bitmap QrBytes2Bitmap(byte[,] bytes, int pixelSize)
+        public static Bitmap QrMatrix2Bitmap(byte[,] bytes, int pixelSize)
         {
             int length = bytes.GetLength(0);
             List<Rectangle> rects = new List<Rectangle>();
@@ -80,7 +80,7 @@ namespace Z.QRCodeEncoder.Net.Test
         /// <param name="bytes">byte[][](0白 1黑)</param>
         /// <param name="pixelSize">像素尺寸</param>
         /// <returns>Bitmap</returns>
-        public static Bitmap QrBytes2Bitmap(byte[][] bytes, int pixelSize)
+        public static Bitmap QrMatrix2Bitmap(byte[][] bytes, int pixelSize)
         {
             int length = bytes.Length;
             List<Rectangle> rects = new List<Rectangle>();

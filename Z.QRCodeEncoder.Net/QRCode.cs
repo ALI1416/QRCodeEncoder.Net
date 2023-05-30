@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 
 namespace Z.QRCodeEncoder.Net
@@ -120,8 +120,8 @@ namespace Z.QRCodeEncoder.Net
         /// </param>
         public QRCode(string content, int? level, int? mode, int? versionNumber)
         {
-            int modeValue;
             int levelValue;
+            int modeValue;
             /* 数据 */
             // 纠错等级
             if (level == null)
@@ -157,22 +157,14 @@ namespace Z.QRCodeEncoder.Net
             }
             Mode = modeValue;
             // 内容bytes
-            byte[] contentBytes;
-            if (modeValue == 3)
-            {
-                contentBytes = UTF8.GetBytes(content);
-            }
-            else
-            {
-                contentBytes = ISO88591.GetBytes(content);
-            }
+            byte[] contentBytes = Encoding.UTF8.GetBytes(content);
             // 版本
-            Version = new Version(contentBytes.Length, levelValue, modeValue, versionNumber);
+            Version = new Version(contentBytes.Length, Level, Mode, versionNumber);
             VersionNumber = Version.VersionNumber;
             // 数据bits
             bool[] dataBits = new bool[Version.DataBits];
             // 填充数据
-            switch (modeValue)
+            switch (Mode)
             {
                 // 填充编码模式为NUMERIC的数据
                 case 0:
@@ -224,8 +216,7 @@ namespace Z.QRCodeEncoder.Net
                     int[] dataBlock = QRCodeUtils.GetBytes(dataBits, dataByteNum * 8, dataBytes);
                     dataBlocks[blockNum] = dataBlock;
                     // 纠错块
-                    int[] ecBlock = ReedSolomon.Encoder(dataBlock, ecBlockBytes);
-                    ecBlocks[blockNum] = ecBlock;
+                    ecBlocks[blockNum] = ReedSolomon.Encoder(dataBlock, ecBlockBytes);
                     blockNum++;
                     dataByteNum += dataBytes;
                 }
@@ -256,7 +247,7 @@ namespace Z.QRCodeEncoder.Net
             }
 
             /* 构造掩模模板 */
-            MaskPattern = new MaskPattern(dataAndEcBits, Version, levelValue);
+            MaskPattern = new MaskPattern(dataAndEcBits, Version, Level);
             MaskPatternNumber = MaskPattern.Best;
             Matrix = QRCodeUtils.Convert(MaskPattern.Patterns[MaskPatternNumber], Version.Dimension);
         }
@@ -491,15 +482,6 @@ namespace Z.QRCodeEncoder.Net
             // NUMERIC 数字0-9
             return 0;
         }
-
-        /// <summary>
-        /// 字符编码ISO-8859-1
-        /// </summary>
-        private static readonly Encoding ISO88591 = Encoding.GetEncoding("ISO-8859-1");
-        /// <summary>
-        /// 字符编码UTF-8
-        /// </summary>
-        private static readonly Encoding UTF8 = Encoding.UTF8;
 
         /// <summary>
         /// 数字0xEC

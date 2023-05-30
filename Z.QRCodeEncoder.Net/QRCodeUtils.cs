@@ -1,4 +1,4 @@
-﻿namespace Z.QRCodeEncoder.Net
+namespace Z.QRCodeEncoder.Net
 {
 
     /// <summary>
@@ -17,7 +17,7 @@
         /// </summary>
         /// <param name="bytes">byte[,]</param>
         /// <param name="dimension">尺寸</param>
-        /// <returns>bool</returns>
+        /// <returns>bool[,]</returns>
         public static bool[,] Convert(byte[,] bytes, int dimension)
         {
             bool[,] data = new bool[dimension, dimension];
@@ -54,6 +54,7 @@
         /// </summary>
         /// <param name="value">值</param>
         /// <param name="numberBits">获取bit个数</param>
+        /// <returns>bit数组</returns>
         public static bool[] GetBits(int value, int numberBits)
         {
             bool[] bits = new bool[numberBits];

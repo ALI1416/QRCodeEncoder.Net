@@ -10,7 +10,7 @@
 
 ## 简介
 
-本项目参考了[micjahn/ZXing.Net](https://github.com/micjahn/ZXing.Net)，只编写了生成器部分，并对处理逻辑进行了大量优化，编译后dll文件仅40kb
+本项目参考了[micjahn/ZXing.Net](https://github.com/micjahn/ZXing.Net)，只编写了生成器部分，并对处理逻辑进行了大量优化，构建后`Z.QRCodeEncoder.Net.dll`文件仅`40kb`
 
 注意：本项目不提供二维码绘制方法，如需绘制请看`使用示例`
 
@@ -117,6 +117,8 @@ public static void SaveBitmap(Bitmap bitmap, string path)
     bitmap.Save(path, ImageFormat.Png);
 }
 ```
+
+更多请见[测试](./Z.QRCodeEncoder.Net.Test)
 
 ## 更新日志
 

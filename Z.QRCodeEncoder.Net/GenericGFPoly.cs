@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Z.QRCodeEncoder.Net
 {
@@ -118,10 +118,10 @@ namespace Z.QRCodeEncoder.Net
             int[] product = new int[aLength + bLength - 1];
             for (int i = 0; i < aLength; i++)
             {
-                int aCoeff = aCoefficients[i];
+                int aCoefficient = aCoefficients[i];
                 for (int j = 0; j < bLength; j++)
                 {
-                    product[i + j] = GenericGF.Addition(product[i + j], GenericGF.Multiply(aCoeff, bCoefficients[j]));
+                    product[i + j] = GenericGF.Addition(product[i + j], GenericGF.Multiply(aCoefficient, bCoefficients[j]));
                 }
             }
             return new GenericGFPoly(product);

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -35,12 +35,12 @@ namespace Z.QRCodeEncoder.Net.Test
             // 生成二维码
             string content = "1234😀";
             int level = 0;
-            int? versionNumber = 1;
             int? mode = 3;
+            int? versionNumber = 1;
             string path = Program.path + "Test/";
             Directory.CreateDirectory(path);
             QRCode qrCode1 = new QRCode(content, level, mode, versionNumber);
-            Bitmap bitmap1 = ImageUtils.QrBytes2Bitmap(qrCode1.Matrix, 10);
+            Bitmap bitmap1 = ImageUtils.QrMatrix2Bitmap(qrCode1.Matrix, 10);
             ImageUtils.SaveBitmap(bitmap1, path + "qr1.png");
             // 识别二维码
             BarcodeReader reader1 = new BarcodeReader();
@@ -48,7 +48,7 @@ namespace Z.QRCodeEncoder.Net.Test
             Console.WriteLine(result1);
             // 生成ZXing二维码
             ZXing.QrCode.Internal.QRCode qrCode2 = Encoder.encode(content, GetLevel(level), GetHints(versionNumber, mode));
-            Bitmap bitmap2 = ImageUtils.QrBytes2Bitmap(qrCode2.Matrix.Array, 10);
+            Bitmap bitmap2 = ImageUtils.QrMatrix2Bitmap(qrCode2.Matrix.Array, 10);
             ImageUtils.SaveBitmap(bitmap2, path + "qr2.png");
             // 识别ZXing二维码
             BarcodeReader reader2 = new BarcodeReader();
@@ -58,7 +58,7 @@ namespace Z.QRCodeEncoder.Net.Test
             byte[][,] patterns = qrCode1.MaskPattern.Patterns;
             for (int i = 0; i < 8; i++)
             {
-                Bitmap bitmap = ImageUtils.QrBytes2Bitmap(patterns[i], 10);
+                Bitmap bitmap = ImageUtils.QrMatrix2Bitmap(patterns[i], 10);
                 ImageUtils.SaveBitmap(bitmap, path + "pattern" + i + ".png");
             }
         }
@@ -75,19 +75,19 @@ namespace Z.QRCodeEncoder.Net.Test
             string path = Program.path + "ParameterTest/";
             Directory.CreateDirectory(path);
             QRCode qrCode1 = new QRCode(content);
-            Bitmap bitmap1 = ImageUtils.QrBytes2Bitmap(qrCode1.Matrix, 10);
+            Bitmap bitmap1 = ImageUtils.QrMatrix2Bitmap(qrCode1.Matrix, 10);
             ImageUtils.SaveBitmap(bitmap1, path + "qr1.png");
             bitmap1.Dispose();
             QRCode qrCode2 = new QRCode(content, level);
-            Bitmap bitmap2 = ImageUtils.QrBytes2Bitmap(qrCode2.Matrix, 10);
+            Bitmap bitmap2 = ImageUtils.QrMatrix2Bitmap(qrCode2.Matrix, 10);
             ImageUtils.SaveBitmap(bitmap2, path + "qr2.png");
             bitmap2.Dispose();
             QRCode qrCode3 = new QRCode(content, level, mode);
-            Bitmap bitmap3 = ImageUtils.QrBytes2Bitmap(qrCode3.Matrix, 10);
+            Bitmap bitmap3 = ImageUtils.QrMatrix2Bitmap(qrCode3.Matrix, 10);
             ImageUtils.SaveBitmap(bitmap3, path + "qr3.png");
             bitmap3.Dispose();
             QRCode qrCode4 = new QRCode(content, level, mode, versionNumber);
-            Bitmap bitmap4 = ImageUtils.QrBytes2Bitmap(qrCode4.Matrix, 10);
+            Bitmap bitmap4 = ImageUtils.QrMatrix2Bitmap(qrCode4.Matrix, 10);
             ImageUtils.SaveBitmap(bitmap4, path + "qr4.png");
             bitmap4.Dispose();
         }
