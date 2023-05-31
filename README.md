@@ -10,14 +10,14 @@
 
 ## 简介
 
-本项目参考了[micjahn/ZXing.Net](https://github.com/micjahn/ZXing.Net)，只编写了生成器部分，并对处理逻辑进行了大量优化，构建后`Z.QRCodeEncoder.Net.dll`文件仅`40kb`
+本项目参考了[micjahn/ZXing.Net](https://github.com/micjahn/ZXing.Net)，只编写了生成器部分，并对处理逻辑进行了大量优化，构建后`Z.QRCodeEncoder.Net.dll`文件仅`39kb`
 
 注意：本项目不提供二维码绘制方法，如需绘制请看`使用示例`
 
 ## 依赖导入
 
 ```bat
-dotnet add package Z.QRCodeEncoder.Net --version 1.0.1
+dotnet add package Z.QRCodeEncoder.Net --version 1.0.2
 ```
 
 ## 方法和参数
@@ -123,6 +123,11 @@ public static void SaveBitmap(Bitmap bitmap, string path)
 ## 更新日志
 
 [点击查看](./CHANGELOG.md)
+
+## 其他语言项目
+
+- `Java` : [ALI1416/qrcode-encoder](https://github.com/ali1416/qrcode-encoder)
+- `JavaScript` : [ALI1416/qrcode-encoder-js](https://github.com/ali1416/qrcode-encoder-js)
 
 ## 参考
 

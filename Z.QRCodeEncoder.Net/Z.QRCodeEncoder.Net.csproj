@@ -4,10 +4,10 @@
 
     <PackageId>Z.QRCodeEncoder.Net</PackageId>
     <Title>二维码生成器.Net版</Title>
-    <Description>本项目参考了ZXing.Net，只编写了生成器部分，并对处理逻辑进行了大量优化，编译后dll文件仅40kb</Description>
-    <Version>1.0.1</Version>
-    <AssemblyVersion>1.0.1.2</AssemblyVersion>
-    <AssemblyFileVersion>1.0.1.2</AssemblyFileVersion>
+    <Description>本项目参考了`ZXing.Net`，只编写了生成器部分，并对处理逻辑进行了大量优化，构建后`Z.QRCodeEncoder.Net.dll`文件仅`39kb`</Description>
+    <Version>1.0.2</Version>
+    <AssemblyVersion>1.0.2.3</AssemblyVersion>
+    <AssemblyFileVersion>1.0.2.3</AssemblyFileVersion>
     <Product>$(PackageId) ($(TargetFramework))</Product>
 
     <Authors>ali</Authors>
