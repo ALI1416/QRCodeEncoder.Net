@@ -1,4 +1,4 @@
-# QRCodeEncoder.Net 二维码生成器.Net版
+# QR Code Encoder For Net 二维码生成器.Net版
 
 [![License](https://img.shields.io/github/license/ali1416/QRCodeEncoder.Net?label=License)](https://www.apache.org/licenses/LICENSE-2.0.txt)
 [![.Net Support](https://img.shields.io/badge/.NET%20Standard-2.0+-green)](https://openjdk.org/)
@@ -10,14 +10,19 @@
 
 ## 简介
 
-本项目参考了[micjahn/ZXing.Net](https://github.com/micjahn/ZXing.Net)，只编写了生成器部分，并对处理逻辑进行了大量优化，构建后`Z.QRCodeEncoder.Net.dll`文件仅`39kb`
+本项目参考了[micjahn/ZXing.Net](https://github.com/micjahn/ZXing.Net)，只编写了生成器部分，并对处理逻辑进行了大量优化，构建后`Z.QRCodeEncoder.Net.dll`文件仅`40kb`
 
 注意：本项目不提供二维码绘制方法，如需绘制请看`使用示例`
 
+### 其他语言项目
+
+- `Java` : [ALI1416/qrcode-encoder](https://github.com/ali1416/qrcode-encoder)
+- `JavaScript` : [ALI1416/qrcode-encoder-js](https://github.com/ali1416/qrcode-encoder-js)
+
 ## 依赖导入
 
-```bat
-dotnet add package Z.QRCodeEncoder.Net --version 1.0.2
+```sh
+dotnet add package Z.QRCodeEncoder.Net --version 1.1.0
 ```
 
 ## 方法和参数
@@ -124,22 +129,15 @@ public static void SaveBitmap(Bitmap bitmap, string path)
 
 [点击查看](./CHANGELOG.md)
 
-## 其他语言项目
-
-- `Java` : [ALI1416/qrcode-encoder](https://github.com/ali1416/qrcode-encoder)
-- `JavaScript` : [ALI1416/qrcode-encoder-js](https://github.com/ali1416/qrcode-encoder-js)
-
 ## 参考
 
 - [micjahn/ZXing.Net](https://github.com/micjahn/ZXing.Net)
 
-## 交流与赞助
+## 关于
 
-- [x] `QQ` : `1416978277`
-- [x] `微信` : `1416978277`
-- [x] `支付宝` : `1416978277@qq.com`
-- [x] `电子邮箱` : `1416978277@qq.com`
-
-![交流](https://cdn.jsdelivr.net/gh/ALI1416/ALI1416/image/contact.png)
-
-![赞助](https://cdn.jsdelivr.net/gh/ALI1416/ALI1416/image/donate.png)
+<object data="https://404z.cn/images/about.svg" style="max-width:100%;">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://404z.cn/images/about.dark.svg">
+    <img alt="About" src="https://404z.cn/images/about.light.svg">
+  </picture>
+</object>
