@@ -1,4 +1,4 @@
-# QR Code Encoder For Net 二维码生成器.Net版
+# QR Code Encoder For .Net 二维码生成器.Net版
 
 [![License](https://img.shields.io/github/license/ali1416/QRCodeEncoder.Net?label=License)](https://www.apache.org/licenses/LICENSE-2.0.txt)
 [![.Net Support](https://img.shields.io/badge/.NET%20Standard-2.0+-green)](https://openjdk.org/)
