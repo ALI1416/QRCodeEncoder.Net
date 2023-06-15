@@ -1,10 +1,10 @@
 # QR Code Encoder For .Net 二维码生成器.Net版
 
-[![License](https://img.shields.io/github/license/ali1416/QRCodeEncoder.Net?label=License)](https://www.apache.org/licenses/LICENSE-2.0.txt)
+[![License](https://img.shields.io/github/license/ALI1416/QRCodeEncoder.Net?label=License)](https://www.apache.org/licenses/LICENSE-2.0.txt)
 [![.Net Support](https://img.shields.io/badge/.NET%20Standard-2.0+-green)](https://openjdk.org/)
 [![NuGet Gallery](https://img.shields.io/nuget/v/Z.QRCodeEncoder.Net?label=NuGet%20Gallery)](https://www.nuget.org/packages/Z.QRCodeEncoder.Net)
-[![Tag](https://img.shields.io/github/v/tag/ali1416/QRCodeEncoder.Net?label=Tag)](https://github.com/ALI1416/QRCodeEncoder.Net/tags)
-[![Repo Size](https://img.shields.io/github/repo-size/ali1416/QRCodeEncoder.Net?label=Repo%20Size&color=success)](https://github.com/ALI1416/QRCodeEncoder.Net/archive/refs/heads/master.zip)
+[![Tag](https://img.shields.io/github/v/tag/ALI1416/QRCodeEncoder.Net?label=Tag)](https://github.com/ALI1416/QRCodeEncoder.Net/tags)
+[![Repo Size](https://img.shields.io/github/repo-size/ALI1416/QRCodeEncoder.Net?label=Repo%20Size&color=success)](https://github.com/ALI1416/QRCodeEncoder.Net/archive/refs/heads/master.zip)
 
 [![DotNet CI](https://github.com/ALI1416/QRCodeEncoder.Net/actions/workflows/ci.yml/badge.svg)](https://github.com/ALI1416/QRCodeEncoder.Net/actions/workflows/ci.yml)
 
@@ -16,8 +16,8 @@
 
 ### 其他语言项目
 
-- `Java` : [ALI1416/qrcode-encoder](https://github.com/ali1416/qrcode-encoder)
-- `JavaScript` : [ALI1416/qrcode-encoder-js](https://github.com/ali1416/qrcode-encoder-js)
+- `Java` : [ALI1416/qrcode-encoder](https://github.com/ALI1416/qrcode-encoder)
+- `JavaScript` : [ALI1416/qrcode-encoder-js](https://github.com/ALI1416/qrcode-encoder-js)
 
 ## 依赖导入
 
@@ -135,9 +135,7 @@ public static void SaveBitmap(Bitmap bitmap, string path)
 
 ## 关于
 
-<object data="https://404z.cn/images/about.svg" style="max-width:100%;">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://404z.cn/images/about.dark.svg">
-    <img alt="About" src="https://404z.cn/images/about.light.svg">
-  </picture>
-</object>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://www.404z.cn/images/about.dark.svg">
+  <img alt="About" src="https://www.404z.cn/images/about.light.svg">
+</picture>
