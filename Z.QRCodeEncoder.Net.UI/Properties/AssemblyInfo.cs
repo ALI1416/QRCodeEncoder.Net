@@ -1,15 +1,15 @@
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Z.QRCodeEncoder.Net.Test")]
+[assembly: AssemblyTitle("Z.QRCodeEncoder.Net.UI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Z.QRCodeEncoder.Net.Test")]
-[assembly: AssemblyCopyright("Copyright ©  2023")]
+[assembly: AssemblyProduct("Z.QRCodeEncoder.Net.UI")]
+[assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("1724fcff-18d4-478f-9dc0-046fa38aca4e")]
+[assembly: Guid("5ab121c3-81d5-47b4-9f6e-1202477bc545")]
 
 // 程序集的版本信息由下列四个值组成: 
 //

@@ -14,7 +14,7 @@ namespace Z.QRCodeEncoder.Net.Test
     public class Program
     {
 
-        private static readonly string path = "E:/Z.QRCodeEncoder.Net.Test/";
+        private static readonly string path = "D:/Z.QRCodeEncoder.Net.Test/";
 
         /// <summary>
         /// 启动类

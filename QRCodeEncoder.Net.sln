@@ -1,11 +1,12 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Z.QRCodeEncoder.Net", "Z.QRCodeEncoder.Net\Z.QRCodeEncoder.Net.csproj", "{DAB0D133-756B-4000-AFE8-05B07B4BCFCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Z.QRCodeEncoder.Net", "Z.QRCodeEncoder.Net\Z.QRCodeEncoder.Net.csproj", "{DAB0D133-756B-4000-AFE8-05B07B4BCFCD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Z.QRCodeEncoder.Net.Test", "Z.QRCodeEncoder.Net.Test\Z.QRCodeEncoder.Net.Test.csproj", "{1724FCFF-18D4-478F-9DC0-046FA38ACA4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Z.QRCodeEncoder.Net.UI", "Z.QRCodeEncoder.Net.UI\Z.QRCodeEncoder.Net.UI.csproj", "{5AB121C3-81D5-47B4-9F6E-1202477BC545}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +22,10 @@ Global
 		{1724FCFF-18D4-478F-9DC0-046FA38ACA4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1724FCFF-18D4-478F-9DC0-046FA38ACA4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1724FCFF-18D4-478F-9DC0-046FA38ACA4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AB121C3-81D5-47B4-9F6E-1202477BC545}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AB121C3-81D5-47B4-9F6E-1202477BC545}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AB121C3-81D5-47B4-9F6E-1202477BC545}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AB121C3-81D5-47B4-9F6E-1202477BC545}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
