@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
 
     <PackageId>Z.QRCodeEncoder.Net</PackageId>
     <Title>QR Code Encoder For .Net 二维码生成器.Net版</Title>
