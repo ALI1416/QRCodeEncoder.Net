@@ -1,9 +1,9 @@
-using System.Drawing;
 using ZXing;
 using ZXing.QrCode.Internal;
-using ZXing.Windows.Compatibility;
+using ZXing.SkiaSharp;
+using SkiaSharp;
 
-namespace Z.QRCodeEncoder.Net.Test
+namespace Z.QRCodeEncoder.Net.Test.Net8
 {
 
     /// <summary>
@@ -12,7 +12,7 @@ namespace Z.QRCodeEncoder.Net.Test
     public class Program
     {
 
-        private static readonly string path = "D:/Z.QRCodeEncoder.Net.Test/";
+        private static readonly string path = "D:/Z.QRCodeEncoder.Net.Test.Net8/";
 
         /// <summary>
         /// 启动类
@@ -38,16 +38,16 @@ namespace Z.QRCodeEncoder.Net.Test
             string path = Program.path + "Test/";
             Directory.CreateDirectory(path);
             QRCode qrCode1 = new QRCode(content, level, mode, versionNumber);
-            Bitmap bitmap1 = ImageUtils.QrMatrix2Bitmap(qrCode1.Matrix, 10);
-            ImageUtils.SaveBitmap(bitmap1, path + "qr1.png");
+            SKBitmap bitmap1 = ImageUtils.QrMatrix2Image(qrCode1.Matrix, 10);
+            ImageUtils.SaveImage(bitmap1, path + "qr1.png");
             // 识别二维码
             BarcodeReader reader1 = new BarcodeReader();
             Result result1 = reader1.Decode(bitmap1);
             Console.WriteLine(result1);
             // 生成ZXing二维码
             ZXing.QrCode.Internal.QRCode qrCode2 = Encoder.encode(content, GetLevel(level), GetHints(versionNumber, mode));
-            Bitmap bitmap2 = ImageUtils.QrMatrix2Bitmap(qrCode2.Matrix.Array, 10);
-            ImageUtils.SaveBitmap(bitmap2, path + "qr2.png");
+            SKBitmap bitmap2 = ImageUtils.QrMatrix2Image(qrCode2.Matrix.Array, 10);
+            ImageUtils.SaveImage(bitmap2, path + "qr2.png");
             // 识别ZXing二维码
             BarcodeReader reader2 = new BarcodeReader();
             Result result2 = reader2.Decode(bitmap2);
@@ -56,8 +56,8 @@ namespace Z.QRCodeEncoder.Net.Test
             byte[][,] patterns = qrCode1.MaskPattern.Patterns;
             for (int i = 0; i < 8; i++)
             {
-                Bitmap bitmap = ImageUtils.QrMatrix2Bitmap(patterns[i], 10);
-                ImageUtils.SaveBitmap(bitmap, path + "pattern" + i + ".png");
+                SKBitmap bitmap = ImageUtils.QrMatrix2Image(patterns[i], 10);
+                ImageUtils.SaveImage(bitmap, path + "pattern" + i + ".png");
             }
         }
 
@@ -70,24 +70,20 @@ namespace Z.QRCodeEncoder.Net.Test
             int level = 3;
             int mode = 3;
             int versionNumber = 7;
-            string path = Program.path + "ParameterTest/";
+            string path = Program.path + "CoverageTest/";
             Directory.CreateDirectory(path);
             QRCode qrCode1 = new QRCode(content);
-            Bitmap bitmap1 = ImageUtils.QrMatrix2Bitmap(qrCode1.Matrix, 10);
-            ImageUtils.SaveBitmap(bitmap1, path + "qr1.png");
-            bitmap1.Dispose();
+            SKBitmap bitmap1 = ImageUtils.QrMatrix2Image(qrCode1.Matrix, 10);
+            ImageUtils.SaveImage(bitmap1, path + "qr1.png");
             QRCode qrCode2 = new QRCode(content, level);
-            Bitmap bitmap2 = ImageUtils.QrMatrix2Bitmap(qrCode2.Matrix, 10);
-            ImageUtils.SaveBitmap(bitmap2, path + "qr2.png");
-            bitmap2.Dispose();
+            SKBitmap bitmap2 = ImageUtils.QrMatrix2Image(qrCode2.Matrix, 10);
+            ImageUtils.SaveImage(bitmap2, path + "qr2.png");
             QRCode qrCode3 = new QRCode(content, level, mode);
-            Bitmap bitmap3 = ImageUtils.QrMatrix2Bitmap(qrCode3.Matrix, 10);
-            ImageUtils.SaveBitmap(bitmap3, path + "qr3.png");
-            bitmap3.Dispose();
+            SKBitmap bitmap3 = ImageUtils.QrMatrix2Image(qrCode3.Matrix, 10);
+            ImageUtils.SaveImage(bitmap3, path + "qr3.png");
             QRCode qrCode4 = new QRCode(content, level, mode, versionNumber);
-            Bitmap bitmap4 = ImageUtils.QrMatrix2Bitmap(qrCode4.Matrix, 10);
-            ImageUtils.SaveBitmap(bitmap4, path + "qr4.png");
-            bitmap4.Dispose();
+            SKBitmap bitmap4 = ImageUtils.QrMatrix2Image(qrCode4.Matrix, 10);
+            ImageUtils.SaveImage(bitmap4, path + "qr4.png");
         }
 
         /// <summary>

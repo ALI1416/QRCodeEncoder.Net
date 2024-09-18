@@ -48,7 +48,7 @@ namespace Z.QRCodeEncoder.Net.Test
         /// <summary>
         /// 二维码byte[,]转Bitmap
         /// </summary>
-        /// <param name="bytes">byte[][](0白 1黑)</param>
+        /// <param name="bytes">byte[,](0白 1黑)</param>
         /// <param name="pixelSize">像素尺寸</param>
         /// <returns>Bitmap</returns>
         public static Bitmap QrMatrix2Bitmap(byte[,] bytes, int pixelSize)

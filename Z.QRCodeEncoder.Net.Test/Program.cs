@@ -72,24 +72,20 @@ namespace Z.QRCodeEncoder.Net.Test
             int level = 3;
             int mode = 3;
             int versionNumber = 7;
-            string path = Program.path + "ParameterTest/";
+            string path = Program.path + "CoverageTest/";
             Directory.CreateDirectory(path);
             QRCode qrCode1 = new QRCode(content);
             Bitmap bitmap1 = ImageUtils.QrMatrix2Bitmap(qrCode1.Matrix, 10);
             ImageUtils.SaveBitmap(bitmap1, path + "qr1.png");
-            bitmap1.Dispose();
             QRCode qrCode2 = new QRCode(content, level);
             Bitmap bitmap2 = ImageUtils.QrMatrix2Bitmap(qrCode2.Matrix, 10);
             ImageUtils.SaveBitmap(bitmap2, path + "qr2.png");
-            bitmap2.Dispose();
             QRCode qrCode3 = new QRCode(content, level, mode);
             Bitmap bitmap3 = ImageUtils.QrMatrix2Bitmap(qrCode3.Matrix, 10);
             ImageUtils.SaveBitmap(bitmap3, path + "qr3.png");
-            bitmap3.Dispose();
             QRCode qrCode4 = new QRCode(content, level, mode, versionNumber);
             Bitmap bitmap4 = ImageUtils.QrMatrix2Bitmap(qrCode4.Matrix, 10);
             ImageUtils.SaveBitmap(bitmap4, path + "qr4.png");
-            bitmap4.Dispose();
         }
 
         /// <summary>
