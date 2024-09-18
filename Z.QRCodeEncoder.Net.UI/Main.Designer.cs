@@ -106,6 +106,7 @@ namespace Z.QRCodeEncoder.Net.UI
             this.generateBtn.TabIndex = 2;
             this.generateBtn.Text = "生成";
             this.generateBtn.UseVisualStyleBackColor = true;
+            this.generateBtn.Click += new System.EventHandler(this.GenerateBtn_Click);
             // 
             // contentLabel
             // 
