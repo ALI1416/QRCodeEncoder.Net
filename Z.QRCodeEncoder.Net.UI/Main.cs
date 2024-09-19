@@ -40,15 +40,32 @@ namespace Z.QRCodeEncoder.Net.UI
             int mode = modeComboBox.SelectedIndex;
             int versionNumber = versionNumberComboBox.SelectedIndex;
             string content = contentText.Text;
-            QRCode qrCode = new QRCode(content, level == 0 ? null : (int?)level, mode == 0 ? null : (int?)mode, versionNumber == 0 ? null : (int?)versionNumber);
-            Bitmap bitmap = ImageUtils.QrMatrix2Bitmap(qrCode.Matrix, 10);
+            QRCode qrCode;
+            try
+            {
+                qrCode = new QRCode(content, level, mode == 0 ? null : (int?)mode - 1, versionNumber == 0 ? null : (int?)versionNumber);
+            }
+            catch (QRCodeException e1)
+            {
+                MessageBox.Show(e1.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             previewLabel.Visible = false;
+            Bitmap bitmap = ImageUtils.QrMatrix2Bitmap(qrCode.Matrix, 20);
             if (previewImg.Image != null)
             {
                 previewImg.Image.Dispose();
                 previewImg.Image = null;
             }
             previewImg.Image = bitmap;
+            if (mode == 0)
+            {
+                modeComboBox.Items[0] = "(自动探测) " + modeComboBox.Items[qrCode.Mode + 1];
+            }
+            if (versionNumber == 0)
+            {
+                versionNumberComboBox.Items[0] = "(最小版本) " + qrCode.VersionNumber;
+            }
         }
 
     }
