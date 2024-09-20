@@ -249,6 +249,7 @@ namespace Z.QRCodeEncoder.Net.UI
             this.ClientSize = new System.Drawing.Size(700, 400);
             this.Controls.Add(this.rightPanel);
             this.Controls.Add(this.leftPanel);
+            this.MinimumSize = new System.Drawing.Size(716, 439);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "二维码生成器";
