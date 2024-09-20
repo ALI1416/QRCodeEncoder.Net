@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
 
     <PackageId>Z.QRCodeEncoder.Net</PackageId>
     <Title>QR Code Encoder For .Net 二维码生成器.Net版</Title>
@@ -23,6 +23,7 @@
     <RepositoryUrl>https://github.com/ALI1416/QRCodeEncoder.Net</RepositoryUrl>
     <PackageReleaseNotes>https://github.com/ALI1416/QRCodeEncoder.Net</PackageReleaseNotes>
     <PackageProjectUrl>https://www.nuget.org/packages/Z.QRCodeEncoder.Net</PackageProjectUrl>
+    <Platforms>AnyCPU;ARM32;ARM64;x64;x86</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\DesignDocument\logo.png">
