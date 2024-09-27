@@ -55,9 +55,17 @@ namespace Z.QRCodeEncoder.Net.UI.Net8
             {
                 modeComboBox.Items[0] = "(自动探测) " + modeComboBox.Items[qrCode.Mode + 1];
             }
+            else
+            {
+                modeComboBox.Items[0] = "(自动探测)";
+            }
             if (versionNumber == 0)
             {
                 versionNumberComboBox.Items[0] = "(最小版本) " + qrCode.VersionNumber;
+            }
+            else
+            {
+                versionNumberComboBox.Items[0] = "(最小版本)";
             }
         }
 
