@@ -2,11 +2,11 @@ name: DotNet CI
 
 on:
   push:
-    branches: ["master"]
+    branches: [ "master" ]
     paths-ignore:
       - "**.md"
   pull_request:
-    branches: ["master"]
+    branches: [ "master" ]
     paths-ignore:
       - "**.md"
   workflow_dispatch:
@@ -20,10 +20,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup .NET
+      - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 6.x
+          dotnet-version: 6
 
       - name: Restore dependencies
         run: dotnet restore Z.QRCodeEncoder.Net
