@@ -3,7 +3,7 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
 
     <PackageId>Z.QRCodeEncoder.Net</PackageId>
-    <Title>QR Code Encoder For .Net 二维码生成器.Net版</Title>
+    <Title>QR Code Encoder For Net 二维码生成器.Net版</Title>
     <Description>本项目参考了`ZXing.Net`，只编写了生成器部分，并对处理逻辑进行了大量优化，构建后`Z.QRCodeEncoder.Net.dll`文件仅`40kb`</Description>
     <Version>1.1.0</Version>
     <AssemblyVersion>1.1.0.4</AssemblyVersion>
