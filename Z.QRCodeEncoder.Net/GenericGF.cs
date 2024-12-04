@@ -45,6 +45,9 @@ namespace Z.QRCodeEncoder.Net
         /// <summary>
         /// 加法
         /// </summary>
+        /// <param name="a">加数</param>
+        /// <param name="b">被加数</param>
+        /// <returns>结果</returns>
         public static int Addition(int a, int b)
         {
             return a ^ b;
@@ -52,6 +55,8 @@ namespace Z.QRCodeEncoder.Net
 
         /// <summary>
         /// 2的次方
+        /// <param name="a">幂</param>
+        /// <returns>结果</returns>
         /// </summary>
         public static int Exp(int a)
         {
@@ -60,6 +65,8 @@ namespace Z.QRCodeEncoder.Net
 
         /// <summary>
         /// 逆运算
+        /// <param name="a">被操作数</param>
+        /// <returns>结果</returns>
         /// </summary>
         public static int Inverse(int a)
         {
@@ -68,6 +75,9 @@ namespace Z.QRCodeEncoder.Net
 
         /// <summary>
         /// 乘法
+        /// <param name="a">乘数</param>
+        /// <param name="b">被乘数</param>
+        /// <returns>结果</returns>
         /// </summary>
         public static int Multiply(int a, int b)
         {

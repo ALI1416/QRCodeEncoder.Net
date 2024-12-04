@@ -27,7 +27,7 @@ namespace Z.QRCodeEncoder.Net
         private readonly bool IsZero;
 
         /// <summary>
-        /// 构造函数
+        /// 构造多项式
         /// </summary>
         /// <param name="coefficients">多项式常数</param>
         public GenericGFPoly(int[] coefficients)
@@ -75,6 +75,8 @@ namespace Z.QRCodeEncoder.Net
 
         /// <summary>
         /// 加法
+        /// <param name="other">被加数</param>
+        /// <returns>结果</returns>
         /// </summary>
         public GenericGFPoly Addition(GenericGFPoly other)
         {
@@ -104,6 +106,8 @@ namespace Z.QRCodeEncoder.Net
 
         /// <summary>
         /// 乘法
+        /// <param name="other">被乘数</param>
+        /// <returns>结果</returns>
         /// </summary>
         public GenericGFPoly Multiply(GenericGFPoly other)
         {
@@ -132,6 +136,7 @@ namespace Z.QRCodeEncoder.Net
         /// </summary>
         /// <param name="degree">次数</param>
         /// <param name="coefficient">系数</param>
+        /// <returns>结果</returns>
         public GenericGFPoly MultiplyByMonomial(int degree, int coefficient)
         {
             if (coefficient == 0)
@@ -149,6 +154,8 @@ namespace Z.QRCodeEncoder.Net
 
         /// <summary>
         /// 除法的余数
+        /// <param name="other">被除数</param>
+        /// <returns>余数</returns>
         /// </summary>
         public GenericGFPoly RemainderOfDivide(GenericGFPoly other)
         {
