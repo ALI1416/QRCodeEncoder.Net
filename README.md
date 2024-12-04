@@ -22,7 +22,7 @@
 ## 依赖导入
 
 ```sh
-dotnet add package Z.QRCodeEncoder.Net --version 1.1.0
+dotnet add package Z.QRCodeEncoder.Net
 ```
 
 ## 方法和参数
